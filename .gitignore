@@ -1,0 +1,6 @@
+compiled/
+.planning/
+*.bak
+doc/adaptativa/
+doc/*.css
+doc/*.js
