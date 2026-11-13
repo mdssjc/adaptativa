@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![DrRacket](https://img.shields.io/badge/DrRacket-Plugin%20Integrated-purple.svg)](https://racket-lang.org/)
 [![ODS 04](https://img.shields.io/badge/ODS%2004-Educa%C3%A7%C3%A3o%20de%20Qualidade-orange.svg)](https://brasil.un.org/pt-br/sdgs/4)
+[![ODS 10](https://img.shields.io/badge/ODS%2010-Redu%C3%A7%C3%A3o%20das%20Desigualdades-ff69b4.svg)](https://brasil.un.org/pt-br/sdgs/10)
 
 A **Linguagem Educacional Adaptativa** (`#lang adaptativa`) é um ambiente de aprendizado e linguagem de programação funcional em língua portuguesa integrado nativamente ao **DrRacket**. O projeto foi concebido para o ensino de pensamento computacional e inclusão digital, com foco especial em pessoas idosas e iniciantes, alinhando-se à metodologia pedagógica do livro *How to Design Programs* (HtDP).
 
@@ -13,7 +14,7 @@ A **Linguagem Educacional Adaptativa** (`#lang adaptativa`) é um ambiente de ap
 
 - **Objetivo Principal:** Reduzir as barreiras de entrada no aprendizado de programação por meio de vocabulário em português, feedback pedagógico acolhedor e interface gráfica assistida.
 - **Público-Alvo:** Idosos e pessoas em processo inicial de inclusão digital e alfabetização lógica.
-- **Contexto de Extensão:** Desenvolvido no âmbito do projeto de Atividades Extensionistas (Bacharelado em Ciência da Computação - UNINTER), em consonância com o **ODS 04 da ONU (Educação de Qualidade)**, com aplicação prática na Casa do Idoso Sul (São José dos Campos / SP).
+- **Contexto de Extensão:** Desenvolvido no âmbito do projeto de Atividades Extensionistas (Bacharelado em Ciência da Computação - UNINTER), em consonância com os **ODS 04 (Educação de Qualidade)** e **ODS 10 (Redução das Desigualdades)** da ONU, com aplicação prática na Casa do Idoso Sul (São José dos Campos / SP).
 
 ---
 
