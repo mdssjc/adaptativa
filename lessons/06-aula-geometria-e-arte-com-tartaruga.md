@@ -69,13 +69,28 @@ Combinar `repetir` com a tartaruga é a maneira mais divertida de desenhar figur
   (girar-direita 144))
 ```
 
-### f) Reconhecendo padrões: uma função para qualquer polígono!
-Em vez de repetir código para cada forma, podemos criar uma **abstração** que desenha qualquer polígono regular sabendo que o giro externo é sempre `(dividir 360 lados)`:
+### f) Reconhecendo padrões: transição de 'definir'/'se'/'verificar-resultado' para 'define'/'if'/'check-expect'
+Em vez de repetir código para cada forma, podemos criar uma **abstração** usando a forma em português ou a forma HtDP habilitada no Nível 2:
 ```racket
-(definir (poligono lados tamanho)
+;; Em português:
+(definir (angulo-poligono-pt lados)
+  (se (maior? lados 0)
+      (dividir 360 lados)
+      0))
+
+;; Equivalente em HtDP (Nível 2):
+(define (angulo-poligono lados)
+  (if (maior? lados 0)
+      (dividir 360 lados)
+      0))
+
+(verificar-resultado (angulo-poligono-pt 4) 90)
+(check-expect (angulo-poligono 4) 90)
+
+(define (poligono lados tamanho)
   (repetir lados vezes
     (avancar tamanho)
-    (girar-direita (dividir 360 lados))))
+    (girar-direita (angulo-poligono lados))))
 
 (poligono 4 100) ; Quadrado
 (poligono 6 60)  ; Hexágono

@@ -15,13 +15,14 @@ Parabéns pela sua jornada! Você atingiu a maturidade computacional. Agora voc�
 
 ## 🛠️ 2. Tabela de Equivalência Bilíngue
 
-| Conceito | Português (Níveis 1 e 2) | Inglês HtDP Oficial (Nível 3) |
+| Conceito | Português | Inglês HtDP Oficial (Níveis 2 e 3) |
 | :--- | :--- | :--- |
-| **Definições** | `(definir ...)` / `(defina ... como ...)` | `(define ...)` |
-| **Condicionais** | `(se condicao sim nao)` | `(if condicao sim nao)` |
-| **Múltiplos Ramos** | `(escolha [...])` | `(cond [...])` |
-| **Lógica Booleana** | `(e ...)` / `(ou ...)` / `(nao ...)` | `(and ...)` / `(or ...)` / `(not ...)` |
-| **Testes** | `(verificar-resultado ...)` | `(check-expect ...)` |
+| **Definições** | `(definir ...)` / `(defina ... como ...)` | `(define ...)` *(Nível 2)* |
+| **Condicionais** | `(se condicao sim nao)` | `(if condicao sim nao)` *(Nível 2)* |
+| **Múltiplos Ramos** | `(escolha [...])` | `(cond [...])` *(Nível 2)* |
+| **Testes** | `(verificar-resultado ...)` | `(check-expect ...)` *(Nível 2)* |
+| **Lógica Booleana** | `(e ...)` / `(ou ...)` / `(nao ...)` | `(and ...)` / `(or ...)` / `(not ...)` *(Nível 3)* |
+| **Matemática** | `(quadrado n)` / `(potencia b e)` / `(quociente a b)` | `(sqr n)` / `(expt b e)` / `(quotient a b)` *(Nível 3)* |
 | **Textos** | `(juntar-texto ...)` | `(string-append ...)` |
 | | `(tamanho-texto ...)` | `(string-length ...)` |
 | **Listas/Coleções** | `(lista 1 2 3)` | `(list 1 2 3)` |
@@ -61,12 +62,33 @@ Parabéns pela sua jornada! Você atingiu a maturidade computacional. Agora voc�
 (mostrar (juntar-texto "Soma das medições: " (somar-medicoes historico-bpm) " bpm"))
 ```
 
-### c) Testes com sintaxe oficial check-expect
+### c) Lógica booleana ('and', 'or', 'not') e matemática ('sqr', 'expt', 'quotient') do Nível 3
+```racket
+(define (zona-aerobica? bpm)
+  (and (>= bpm 100)
+       (not (> bpm 130))))
+
+(define (alerta-bpm? bpm)
+  (or (< bpm 50)
+      (> bpm 160)))
+
+(define (media-inteira soma qtd)
+  (quotient soma qtd))
+
+(define (pontuacao-energia nivel)
+  (+ (sqr nivel) (expt 2 nivel)))
+```
+
+### d) Testes com sintaxe oficial check-expect
 ```racket
 (check-expect (calcular-distancia 3 10) 30)
 (check-expect (classificar-esforco 85) "Descanso ou aquecimento leve")
 (check-expect (somar-medicoes historico-bpm) 450)
 (check-expect (somar-medicoes empty) 0)
+(check-expect (zona-aerobica? 115) verdadeiro)
+(check-expect (alerta-bpm? 45) verdadeiro)
+(check-expect (media-inteira 450 4) 112)
+(check-expect (pontuacao-energia 3) 17)
 ```
 
 ---

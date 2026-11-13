@@ -1,10 +1,10 @@
 # Aula 04: Tomada de Decisão, Condicionais e Testes
 ;; @aula: 4
 ;; @nivel: 2
-;; @titulo: Tomada de Decisão, Condicionais ('se') e Testes
+;; @titulo: Tomada de Decisão, Condicionais ('if', 'cond') e Testes ('check-expect')
 
 ## 🎯 Objetivo Pedagógico
-Ensinar o computador a tomar decisões com base em perguntas lógicas, formular diálogos inteligentes com o usuário e introduzir a prática científica de validação com testes automatizados.
+Ensinar o computador a tomar decisões com base em perguntas lógicas, iniciar a transição para os comandos do Nível 2 (`define`, `if`, `cond`, `check-expect`) e introduzir a prática científica de validação com testes automatizados.
 
 ---
 
@@ -12,34 +12,49 @@ Ensinar o computador a tomar decisões com base em perguntas lógicas, formular 
 No cotidiano tomamos decisões a todo momento:
 - *"Se a temperatura estiver acima de 28 graus, levo água fresca; caso contrário, levo um agasalho leve."*
 
-O comando `(se condicao caso-sim caso-nao)` ensina essa mesma lógica ao computador!
+No Nível 2, além de `(se ...)`, `(escolha ...)` e `(verificar-resultado ...)`, você desbloqueia os equivalentes oficiais do HtDP: `(define ...)`, `(if ...)`, `(cond ...)` e `(check-expect ...)`.
 
 ---
 
 ## 🛠️ 2. Conceitos e Comandos Principais
 
-### a) O desvio condicional 'se'
-O computador avalia a condição e escolhe qual caminho seguir:
+### a) O desvio condicional: 'se' (português) e 'if' (HtDP)
+O computador avalia a condição e escolhe qual caminho seguir. No Nível 2, você pode usar tanto `definir` + `se` quanto `define` + `if`:
 ```racket
+;; Em português (Nível 1 -> Nível 2):
 (definir (avaliar-temperatura graus)
   (se (maior-ou-igual? graus 28)
       "Dia ensolarado: use protetor solar e beba água!"
       "Clima ameno: aproveite para um passeio agradável!"))
 
+;; Em inglês HtDP (habilitado no Nível 2):
+(define (temperatura-alta? graus)
+  (if (maior-ou-igual? graus 28)
+      verdadeiro
+      falso))
+
 (mostrar (juntar-texto "Previsão para 31°C: " (avaliar-temperatura 31)))
 (mostrar (juntar-texto "Previsão para 22°C: " (avaliar-temperatura 22)))
 ```
 
-### b) Múltiplas escolhas com 'escolha' e lógica composta ('e', 'ou', 'nao')
-Quando há mais de dois caminhos possíveis, usamos `escolha` com `senao`, e podemos combinar perguntas com `e`, `ou` e `nao`:
+### b) Múltiplas escolhas: 'escolha' e 'cond', mais lógica em português ('e', 'ou', 'nao')
+Quando há mais de dois caminhos possíveis, podemos usar `escolha` (com `senao`) ou `cond` (com `else`), e combinar perguntas com `e`, `ou` e `nao`:
 ```racket
+;; Forma em português:
 (definir (semaforo-saude batimentos)
   (escolha
    [(menor? batimentos 60) "Abaixo do padrão de repouso"]
    [(menor-ou-igual? batimentos 100) "Ritmo cardíaco em repouso normal"]
    [senao "Ritmo acelerado - consulte o instrutor"]))
 
-(definir (repouso-saudavel? batimentos)
+;; Forma equivalente em HtDP (Nível 2):
+(define (semaforo-saude-htdp batimentos)
+  (cond
+   [(menor? batimentos 60) "Abaixo do padrão de repouso"]
+   [(menor-ou-igual? batimentos 100) "Ritmo cardíaco em repouso normal"]
+   [else "Ritmo acelerado - consulte o instrutor"]))
+
+(define (repouso-saudavel? batimentos)
   (e (maior-ou-igual? batimentos 60)
      (menor-ou-igual? batimentos 100)))
 ```
@@ -71,21 +86,21 @@ Podemos criar um assistente virtual que pergunta a temperatura ao usuário e res
   (mostrar (juntar-texto "Orientação do dia: " (avaliar-temperatura temp-digitada)))
   ```
 
-### e) Validação com testes automatizados ('verificar-resultado')
-Comprove cientificamente que sua função funciona em todos os cenários:
+### e) Validação com testes automatizados: 'verificar-resultado' e 'check-expect'
+Comprove cientificamente que sua função funciona em todos os cenários usando as duas formas equivalentes:
 ```racket
 (verificar-resultado (avaliar-temperatura 30) "Dia ensolarado: use protetor solar e beba água!")
-(verificar-resultado (avaliar-temperatura 20) "Clima ameno: aproveite para um passeio agradável!")
-(verificar-resultado (repouso-saudavel? 75) verdadeiro)
+(check-expect (avaliar-temperatura 20) "Clima ameno: aproveite para um passeio agradável!")
+(check-expect (repouso-saudavel? 75) verdadeiro)
 ```
 > 🌟 **Bônus Pedagógico:** Cada teste aprovado garante **+2 pontos extras** automaticamente para o seu perfil!
 
 ---
 
 ## 📋 3. Roteiro Prático Passo a Passo
-- Passo 1: Escreva a função `(avaliar-temperatura graus)` no seu arquivo.
+- Passo 1: Escreva a função `(avaliar-temperatura graus)` em português (`definir`/`se`) e compare com `define`/`if`.
 - Passo 2: Teste a função com valores diferentes: 32 e 19 graus.
-- Passo 3: Adicione um `(verificar-resultado ...)` para comprovar a resposta esperada.
+- Passo 3: Adicione um `(verificar-resultado ...)` e um `(check-expect ...)` para comprovar a resposta esperada.
 - Passo 4: Execute com **Ctrl+R** e veja sua pontuação e nível avançando no placar!
 
 ---

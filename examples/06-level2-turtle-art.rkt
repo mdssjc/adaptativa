@@ -11,14 +11,27 @@
 (iniciar-tartaruga)
 (velocidade-tartaruga 6)
 
-;; 2. Reconhecimento de padrões e abstração: uma receita para qualquer polígono regular!
+;; 2. Reconhecimento de padrões e abstração: transição 'definir'/'se'/'verificar-resultado' <-> 'define'/'if'/'check-expect'
 ;; O ângulo externo de qualquer polígono regular é sempre (360 / lados)
+(definir (angulo-poligono-pt lados)
+  (se (maior? lados 0)
+      (dividir 360 lados)
+      0))
+
+(define (angulo-poligono lados)
+  (if (maior? lados 0)
+      (dividir 360 lados)
+      0))
+
+(verificar-resultado (angulo-poligono-pt 4) 90)
+(check-expect (angulo-poligono 3) 120)
+
 (definir (poligono lados tamanho)
   (repetir lados vezes
     (avancar tamanho)
-    (girar-direita (dividir 360 lados))))
+    (girar-direita (angulo-poligono lados))))
 
-(definir (estrela tamanho)
+(define (estrela tamanho)
   (repetir 5 vezes
     (avancar tamanho)
     (girar-direita 144)))

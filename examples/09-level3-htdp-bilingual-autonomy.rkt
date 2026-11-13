@@ -24,9 +24,17 @@
     [else (+ (item-preco (first itens))
              (somar-cesta (rest itens)))]))
 
-;; 3. Decisão com 'if' e 'cond' para descontos e faixas de gasto
+;; 3. Decisão com 'if', 'cond' e lógica booleana do Nível 3 ('and', 'or', 'not')
+(define (faixa-saudavel? total)
+  (and (>= total 20)
+       (not (> total 100))))
+
+(define (tem-desconto-especial? total quantidade)
+  (or (>= total 50)
+      (>= quantidade 5)))
+
 (define (aplicar-desconto total)
-  (if (>= total 50)
+  (if (tem-desconto-especial? total (length cesta-feira))
       (- total 10)
       total))
 
@@ -36,6 +44,13 @@
     [(<= total 60) "Compra equilibrada"]
     [else "Compra grande - confira a lista"]))
 
+;; 4. Matemática avançada do Nível 3 ('sqr', 'expt', 'quotient')
+(define (parcela-inteira total parcelas)
+  (quotient total parcelas))
+
+(define (bonus-fidelidade nivel-clube)
+  (+ (sqr nivel-clube) (expt 2 nivel-clube)))
+
 (define total-bruto (somar-cesta cesta-feira))
 (define total-final (aplicar-desconto total-bruto))
 
@@ -43,13 +58,20 @@
 (mostrar (juntar-texto "Primeiro item: " (item-nome (first cesta-feira))))
 (mostrar (juntar-texto "Total bruto: R$ " total-bruto))
 (mostrar (juntar-texto "Total com desconto: R$ " total-final))
+(mostrar (juntar-texto "Em 3x inteiras de: R$ " (parcela-inteira total-final 3)))
+(mostrar (juntar-texto "Bônus fidelidade (nível 3): " (bonus-fidelidade 3) " pontos"))
 (mostrar (juntar-texto "Avaliação: " (resumo-compra total-final)))
 
-;; 4. Bateria de testes oficiais com check-expect
+;; 5. Bateria de testes oficiais com check-expect
 (check-expect (somar-cesta empty) 0)
 (check-expect (somar-cesta cesta-feira) 55)
+(check-expect (faixa-saudavel? 45) verdadeiro)
+(check-expect (faixa-saudavel? 120) falso)
+(check-expect (tem-desconto-especial? 30 5) verdadeiro)
 (check-expect (aplicar-desconto 40) 40)
 (check-expect (aplicar-desconto 55) 45)
+(check-expect (parcela-inteira 45 3) 15)
+(check-expect (bonus-fidelidade 3) 17)
 (check-expect (resumo-compra 45) "Compra equilibrada")
 
 (mostrar "Parabéns! Você concluiu o percurso até a autonomia completa com o HtDP!")

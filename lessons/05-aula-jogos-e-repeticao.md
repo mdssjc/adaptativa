@@ -22,17 +22,32 @@ Use a instrução `(repetir N vezes ...)` para executar algo repetidamente:
   (mostrar "Bom dia! Viva o aprendizado ativo!"))
 ```
 
-### b) Sorteando números aleatórios
-Gere números da sorte entre um valor mínimo e máximo:
+### b) Sorteando números aleatórios e decidindo ('se'/'if' e 'verificar-resultado'/'check-expect')
+Gere números da sorte entre um valor mínimo e máximo e pratique a transição entre português e HtDP no Nível 2:
 ```racket
 (defina sorteio como (sortear-numero 1 60))
 (mostrar (juntar-texto "Número sorteado da rodada: " sorteio))
+
+;; Em português:
+(definir (resultado-dado-pt valor)
+  (se (maior? valor 3)
+      "Avance 2 casas!"
+      "Avance 1 casa!"))
+
+;; Equivalente em HtDP (Nível 2):
+(define (resultado-dado valor)
+  (if (maior? valor 3)
+      "Avance 2 casas!"
+      "Avance 1 casa!"))
+
+(verificar-resultado (resultado-dado-pt 5) "Avance 2 casas!")
+(check-expect (resultado-dado 5) "Avance 2 casas!")
 ```
 
 ### c) Coleções de dados em Português com 'lista'
 Podemos guardar múltiplos valores em uma única coleção:
 ```racket
-(defina numeros-favoritos como (lista 7 14 21 28))
+(define numeros-favoritos (lista 7 14 21 28))
 (mostrar (juntar-texto "Quantidade de números: " (tamanho-lista numeros-favoritos)))
 (mostrar (juntar-texto "Primeiro número: " (primeiro numeros-favoritos)))
 ```
@@ -40,15 +55,15 @@ Podemos guardar múltiplos valores em uma única coleção:
 ### d) Criando tabuleiros e jogos visuais com 'desenhar-cenario' e 'colocar-figura'
 Podemos criar um cenário com dimensões exatas e colocar personagens em posições (X, Y):
 ```racket
-(defina tabuleiro como (desenhar-cenario 300 200 "azul-ceu"))
-(defina jogador como (desenhar-circulo 20 "solido" "amarelo"))
-(defina premio como (desenhar-estrela 18 "solido" "dourado"))
+(define tabuleiro (desenhar-cenario 300 200 "azul-ceu"))
+(define jogador (desenhar-circulo 20 "solido" "amarelo"))
+(define premio (desenhar-estrela 18 "solido" "dourado"))
 
 ;; Posicionando o jogador no ponto X=50, Y=100
-(defina cena-1 como (colocar-figura jogador 50 100 tabuleiro))
+(define cena-1 (colocar-figura jogador 50 100 tabuleiro))
 
 ;; Posicionando o prêmio no ponto X=250, Y=100
-(defina cena-jogo como (colocar-figura premio 250 100 cena-1))
+(define cena-jogo (colocar-figura premio 250 100 cena-1))
 
 cena-jogo
 ```

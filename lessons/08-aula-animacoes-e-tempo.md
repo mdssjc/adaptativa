@@ -16,25 +16,36 @@ No cinema e nos desenhos animados, o movimento nasce de uma sequência rápida d
 ## 🛠️ 2. Conceitos e Comandos Principais
 
 ### a) Preparando o cenário e o personagem
-Primeiro criamos o fundo e a figura que vai se mover:
+Primeiro criamos o fundo e a figura que vai se mover (usando `define` e `quotient` do Nível 3 para centralizar o gramado):
 ```racket
-(defina ceu como (desenhar-cenario 420 220 "azul-ceu"))
-(defina gramado como (desenhar-retangulo 420 35 "solido" "verde-escuro"))
-(defina fundo como (colocar-figura gramado 210 202 ceu))
-(defina bola como (desenhar-circulo 18 "solido" "vermelho"))
+(define largura-ceu 420)
+(define ceu (desenhar-cenario largura-ceu 220 "azul-ceu"))
+(define gramado (desenhar-retangulo largura-ceu 35 "solido" "verde-escuro"))
+(define fundo (colocar-figura gramado (quotient largura-ceu 2) 202 ceu))
+(define bola (desenhar-circulo 18 "solido" "vermelho"))
 ```
 
 ### b) Criando a função de cada quadro (`t -> figura`)
-A posição horizontal X cresce junto com `t`. Usamos `resto-divisao` pela largura da tela (`420`) para que a bola reapareça do lado esquerdo ao chegar à borda direita:
+A posição horizontal X cresce junto com `t`. Usamos `resto-divisao` pela largura da tela (`420`) e combinamos `if`, `and` e `not` (Nível 3) para variar a altura na segunda metade da tela:
 ```racket
-(definir (desenhar-quadro t)
-  (colocar-figura bola (resto-divisao (multiplicar t 5) 420) 168 fundo))
+(define (posicao-x-bola t)
+  (resto-divisao (multiplicar t 5) largura-ceu))
+
+(define (desenhar-quadro t)
+  (colocar-figura
+   bola
+   (posicao-x-bola t)
+   (if (and (>= (posicao-x-bola t) (quotient largura-ceu 2))
+            (not (= t 0)))
+       140
+       168)
+   fundo))
 ```
 
-### c) Testando um quadro e iniciando a animação
+### c) Testando um quadro com 'check-expect' e iniciando a animação
 Como `desenhar-quadro` é uma função normal, podemos testá-la antes de abrir a janela de animação:
 ```racket
-(verificar-resultado (figura? (desenhar-quadro 0)) verdadeiro)
+(check-expect (figura? (desenhar-quadro 0)) verdadeiro)
 
 (criar-animacao desenhar-quadro)
 ```
@@ -42,9 +53,9 @@ Como `desenhar-quadro` é uma função normal, podemos testá-la antes de abrir 
 ---
 
 ## 📋 3. Roteiro Prático Passo a Passo
-- Passo 1: Crie um cenário de 420x220 pixels e um personagem (bola, carro ou pássaro).
-- Passo 2: Escreva `(definir (desenhar-quadro t) ...)` calculando a coordenada X a partir de `t`.
-- Passo 3: Teste sua função com `(verificar-resultado (figura? (desenhar-quadro 0)) verdadeiro)`.
+- Passo 1: Crie um cenário de 420x220 pixels e um personagem (bola, carro ou pássaro) usando `define`.
+- Passo 2: Escreva `(define (desenhar-quadro t) ...)` calculando a coordenada X a partir de `t`.
+- Passo 3: Teste sua função com `(check-expect (figura? (desenhar-quadro 0)) verdadeiro)`.
 - Passo 4: Chame `(criar-animacao desenhar-quadro)` e clique em **Executar (Ctrl+R)**.
 - Passo 5: Experimente trocar o fator `5` por `2` (mais lento) ou `10` (mais rápido)!
 

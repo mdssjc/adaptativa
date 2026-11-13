@@ -3,40 +3,52 @@
 ;;; Metadados do Exemplo Educativo:
 ;; @nivel: 2
 ;; @licao: 4
-;; @titulo: Tomada de Decisão Lógica ('se', 'escolha' & Testes)
+;; @titulo: Tomada de Decisão Lógica ('define', 'if', 'cond' & 'check-expect')
 
-(mostrar "=== Nível 2 - Lição 4: Tomada de Decisão com 'se' e 'escolha' ===")
+(mostrar "=== Nível 2 - Lição 4: Tomada de Decisão com 'if', 'cond' e 'check-expect' ===")
 
-;; 1. Condicional com (se condicao caso-sim caso-nao)
-;; O computador decide qual caminho seguir dependendo do resultado do teste
+;; 1. Condicional: forma em português ('definir' + 'se') e forma HtDP ('define' + 'if')
 (definir (avaliar-temperatura graus)
   (se (maior-ou-igual? graus 28)
       "Dia ensolarado e quente: use protetor solar e beba água!"
       "Clima ameno ou fresco: aproveite para um passeio agradável!"))
 
+(define (temperatura-alta? graus)
+  (if (maior-ou-igual? graus 28)
+      verdadeiro
+      falso))
+
 (mostrar (juntar-texto "Previsão para 31 graus: " (avaliar-temperatura 31)))
 (mostrar (juntar-texto "Previsão para 22 graus: " (avaliar-temperatura 22)))
 
-;; 2. Múltiplas escolhas com (escolha ...)
+;; 2. Múltiplas escolhas: forma em português ('escolha'/'senao') e forma HtDP ('cond'/'else')
 (definir (semaforo-saude batimentos)
   (escolha
    [(menor? batimentos 60) "Abaixo do padrão de repouso"]
    [(menor-ou-igual? batimentos 100) "Ritmo cardíaco em repouso normal"]
    [senao "Ritmo acelerado - consulte o instrutor"]))
 
+(define (semaforo-saude-htdp batimentos)
+  (cond
+   [(menor? batimentos 60) "Abaixo do padrão de repouso"]
+   [(menor-ou-igual? batimentos 100) "Ritmo cardíaco em repouso normal"]
+   [else "Ritmo acelerado - consulte o instrutor"]))
+
 (mostrar (juntar-texto "Status com 75 bpm: " (semaforo-saude 75)))
 
-;; 3. Combinando condições com lógica booleana ('e', 'ou', 'nao')
-(definir (repouso-saudavel? batimentos)
+;; 3. Combinando condições com lógica booleana em português ('e', 'ou', 'nao')
+;; (As formas em inglês 'and', 'or', 'not' serão desbloqueadas no Nível 3!)
+(define (repouso-saudavel? batimentos)
   (e (maior-ou-igual? batimentos 60)
      (menor-ou-igual? batimentos 100)))
 
-;; 4. Validação garantida com testes automatizados:
-;; Testes garantem que o programa funciona com precisão matemática
+;; 4. Validação garantida com as duas formas de teste: 'verificar-resultado' e 'check-expect'
 (verificar-resultado (avaliar-temperatura 30) "Dia ensolarado e quente: use protetor solar e beba água!")
 (verificar-resultado (semaforo-saude 70) "Ritmo cardíaco em repouso normal")
-(verificar-resultado (repouso-saudavel? 75) verdadeiro)
-(verificar-resultado (repouso-saudavel? 115) falso)
+(check-expect (temperatura-alta? 30) verdadeiro)
+(check-expect (semaforo-saude-htdp 70) "Ritmo cardíaco em repouso normal")
+(check-expect (repouso-saudavel? 75) verdadeiro)
+(check-expect (repouso-saudavel? 115) falso)
 
 (mostrar "Todos os testes lógicos foram validados com sucesso!")
 
