@@ -8,32 +8,71 @@
 (provide
  iniciar-tartaruga
  tartaruga
+ turtle
  abrir-tartaruga
  fechar-tartaruga
  avancar
+ frente
+ forward
+ fd
  recuar
+ tras
+ backward
+ bk
  girar-direita
+ direita
+ right
+ rt
  girar-esquerda
+ esquerda
+ left
+ lt
  ir-para
+ posicao
+ goto
+ setpos
  definir-angulo
+ setheading
  levantar-caneta
+ levantar
+ penup
+ pu
  abaixar-caneta
+ abaixar
+ pendown
+ pd
  caneta-abaixada?
+ isdown?
  mudar-cor
  cor-caneta
+ pencolor
  mudar-espessura
  espessura-caneta
+ pensize
  limpar-tela
+ limpar
+ clear
  voltar-ao-centro
+ centro
+ home
  esconder-tartaruga
+ hideturtle
+ ht
  mostrar-tartaruga
+ showturtle
+ st
  tartaruga-visivel?
  velocidade-tartaruga
+ velocidade
+ speed
  obter-x
  posicao-x
+ xcor
  obter-y
  posicao-y
+ ycor
  obter-angulo
+ heading
  salvar-desenho)
 
 (define DEFAULT-WIDTH 600)
